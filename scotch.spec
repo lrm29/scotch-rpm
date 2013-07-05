@@ -1,11 +1,11 @@
-Summary:  Graph, mesh and hypergraph partitioning library
+Summary:	Graph, mesh and hypergraph partitioning library
 Name:		scotch
-Version:	5.1.12
+Version:	6.0.0
 Release:	3.b%{?dist}
 License:	CeCILL-C
 Group:		Development/Libraries
 URL:		http://www.labri.fr/perso/pelegrin/scotch/
-Source0:	https://gforge.inria.fr/frs/download.php/27583/%{name}_%{version}b.tar.gz
+Source0:	https://gforge.inria.fr/frs/download.php/27583/%{name}_%{version}.tar.gz
 Source1:	scotch-Makefile.static.inc.in
 Source2:	scotch-Makefile.shared.inc.in
 BuildRequires:	flex bison zlib-devel bzip2-devel lzma-devel
