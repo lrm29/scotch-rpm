@@ -5,11 +5,13 @@ Release:	3.b%{?dist}
 License:	CeCILL-C
 Group:		Development/Libraries
 URL:		http://www.labri.fr/perso/pelegrin/scotch/
-Source0:	https://gforge.inria.fr/frs/download.php/27583/%{name}_%{version}.tar.gz
+Source0:	https://gforge.inria.fr/frs/download.php/31831/%{name}_%{version}.tar.gz
 Source1:	scotch-Makefile.static.inc.in
 Source2:	scotch-Makefile.shared.inc.in
 BuildRequires:	flex bison zlib-devel bzip2-devel lzma-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
+%global _unpackaged_files_terminate_build 0
 
 %description
 Scotch is a software package for graph and mesh/hypergraph partitioning and
@@ -187,20 +189,17 @@ pushd scotch_%{version}_mpich2
 export libdir=%{buildroot}/${MPI_LIB}
 %doinst prefix=%{buildroot}/${MPI_HOME} libdir=%{buildroot}/${MPI_LIB} includedir=%{buildroot}/${MPI_INCLUDE} mandir=%{buildroot}/${MPI_MAN} bindir=%{buildroot}/${MPI_BIN}
 
-pushd bin
+pushd %{buildroot}/${MPI_BIN}
 for prog in *; do
-	cp $prog %{buildroot}/${MPI_BIN}/scotch_${prog}
+    mv $prog scotch_${prog}
 done
-popd
-
-pushd %{buildroot}/${MPI_BIN}/
 rm -f scotch_dgpart && ln -s ./scotch_dgmap scotch_dgpart
 popd
 
 pushd %{buildroot}/${MPI_MAN}/man1/
 rm -f {a,g,m}*
 for man in *; do
-	mv ${man} scotch_${man}
+    mv ${man} scotch_${man}
 done
 popd
 %{_mpich2_unload}
@@ -213,20 +212,17 @@ pushd scotch_%{version}_openmpi
 export libdir=%{buildroot}/${MPI_LIB}
 %doinst prefix=%{buildroot}/${MPI_HOME} libdir=%{buildroot}/${MPI_LIB} includedir=%{buildroot}/${MPI_INCLUDE} mandir=%{buildroot}/${MPI_MAN} bindir=%{buildroot}/${MPI_BIN}
 
-pushd bin
+pushd %{buildroot}/${MPI_BIN}
 for prog in *; do
-	cp $prog %{buildroot}/${MPI_BIN}/scotch_${prog}
+    mv $prog scotch_${prog}
 done
-popd
-
-pushd %{buildroot}/${MPI_BIN}/
 rm -f scotch_dgpart && ln -s ./scotch_dgmap scotch_dgpart
 popd
 
 pushd %{buildroot}/${MPI_MAN}/man1/
 rm -f {a,g,m}*
 for man in *; do
-	mv ${man} scotch_${man}
+    mv ${man} scotch_${man}
 done
 popd
 %{_openmpi_unload}
